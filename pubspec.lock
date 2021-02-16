@@ -32,12 +32,10 @@ packages:
   base58check:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "552407ae850e0052aa8e3881a0a403abd2e2be0b"
-      url: "https://github.com/bottlepay/base58check.git"
-    source: git
-    version: "2.0.0"
+      name: base58check
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   bech32:
     dependency: "direct main"
     description:
@@ -93,14 +91,14 @@ packages:
       name: crypto
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0"
+    version: "2.1.5"
   equatable:
     dependency: "direct main"
     description:
       name: equatable
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-nullsafety.3"
+    version: "1.2.6"
   glob:
     dependency: transitive
     description:
