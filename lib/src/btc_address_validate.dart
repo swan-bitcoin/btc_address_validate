@@ -18,6 +18,10 @@ class Address extends Equatable {
 
   @override
   List<Object> get props => [type, network, segwit];
+
+  @override
+  String toString() =>
+      '[Address type: $type, network: $network, segwit: $segwit]';
 }
 
 const Map<int, Network> versionToNetwork = {
@@ -42,7 +46,9 @@ Address validate(String address) {
         "Too short: addresses must be at least $minLength characters");
   }
   var prefix = address.substring(0, 2);
-  if (prefix == 'bc' || prefix == 'tb') {
+
+  /// Cast to lowercase to check whether it's an upper/lowercase address
+  if (prefix.toLowerCase() == 'bc' || prefix.toLowerCase() == 'tb') {
     return validateSegwit(address);
   }
 
@@ -64,8 +70,9 @@ Address validate(String address) {
 }
 
 Address validateSegwit(String address) {
-  var prefix = address.substring(0, 2);
+  final prefix = address.substring(0, 2).toLowerCase();
   Segwit decoded;
+
   try {
     decoded = segwit.decode(address);
   } catch (e) {

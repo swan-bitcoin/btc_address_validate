@@ -19,10 +19,23 @@ void main() {
         expect(validate("bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq"),
             Address(Type.p2pkh, Network.mainnet, true));
       });
+
+      test('pkh-uppercase', () {
+        expect(validate("BC1QAR0SRRR7XFKVY5L643LYDNW9RE59GTZZWF5MDQ"),
+            Address(Type.p2pkh, Network.mainnet, true));
+      });
+
       test('sh', () {
         expect(
             validate(
                 "bc1qc7slrfxkknqcq2jevvvkdgvrt8080852dfjewde450xdlk4ugp7szw5tk9"),
+            Address(Type.p2sh, Network.mainnet, true));
+      });
+
+      test('sh-uppercase', () {
+        expect(
+            validate(
+                "BC1QC7SLRFXKKNQCQ2JEVVVKDGVRT8080852DFJEWDE450XDLK4UGP7SZW5TK9"),
             Address(Type.p2sh, Network.mainnet, true));
       });
     });
