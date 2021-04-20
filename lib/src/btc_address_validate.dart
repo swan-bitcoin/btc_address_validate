@@ -12,12 +12,12 @@ enum Network { mainnet, testnet }
 class Address extends Equatable {
   Address(this.type, this.network, this.segwit);
 
-  final Type type;
-  final Network network;
+  final Type? type;
+  final Network? network;
   final bool segwit;
 
   @override
-  List<Object> get props => [type, network, segwit];
+  List<Object?> get props => [type, network, segwit];
 
   @override
   String toString() =>
@@ -112,7 +112,7 @@ Address validateSegwit(String address) {
 class SegwitException implements Exception {
   SegwitException(this.inner);
 
-  final Exception inner;
+  final dynamic inner;
 
   String toString() => "SegWit decoding exception: $inner";
 }
@@ -120,7 +120,7 @@ class SegwitException implements Exception {
 class Base58CheckException implements Exception {
   Base58CheckException(this.inner);
 
-  final Exception inner;
+  final dynamic inner;
 
   String toString() => "Base58Check decoding exception: $inner";
 }

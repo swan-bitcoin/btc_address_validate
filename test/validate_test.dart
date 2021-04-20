@@ -70,7 +70,7 @@ void main() {
     test('too short', () {
       expect(
           () => validate("1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN"),
-          throwsA(predicate((e) =>
+          throwsA(predicate((dynamic e) =>
               e is FormatException &&
               e.message ==
                   'Too short: addresses must be at least 34 characters')));
@@ -78,7 +78,7 @@ void main() {
     test('p2pkh substitution error', () {
       expect(
           () => validate("1BvBMSEYstWetqTan5Au4m4GFg7xJaNVN2"),
-          throwsA(predicate((e) =>
+          throwsA(predicate((dynamic e) =>
               e is Base58CheckException &&
               e.toString() ==
                   'Base58Check decoding exception: FormatException: Invalid checksum in Base58Check encoding.')));
@@ -87,7 +87,7 @@ void main() {
     test('p2pkh addition error', () {
       expect(
           () => validate("1BvBMSEYstWeatqTFn5Au4m4GFg7xJaNVN2"),
-          throwsA(predicate((e) =>
+          throwsA(predicate((dynamic e) =>
               e is Base58CheckException &&
               e.toString() ==
                   'Base58Check decoding exception: FormatException: Invalid checksum in Base58Check encoding.')));
@@ -96,7 +96,7 @@ void main() {
     test('non-address version', () {
       expect(
           () => validate("4ESZo3E7YdsEACtbtCSMw7KbraW6inLYmQ"),
-          throwsA(predicate((e) =>
+          throwsA(predicate((dynamic e) =>
               e is FormatException && e.message == 'Invalid Base58 version')));
     });
 
@@ -104,7 +104,7 @@ void main() {
       expect(
           () => validate(
               "bc10w508d6qejxtdg4y5r3zarvary0c5xw7kw508d6qejxtdg4y5r3zarvary0c5xw7kw5rljs90"),
-          throwsA(predicate((e) =>
+          throwsA(predicate((dynamic e) =>
               e is SegwitException &&
               e.toString() ==
                   'SegWit decoding exception: Program length is invalid: too long')));
@@ -113,7 +113,7 @@ void main() {
     test('non-segwit too long', () {
       expect(
           () => validate("5Hwgr3u458GLafKBgxtssHSPqJnYoGrSzgQsPwLFhLNYskDPyyA"),
-          throwsA(predicate((e) =>
+          throwsA(predicate((dynamic e) =>
               e is FormatException &&
               e.message == 'Invalid Base58 payload length')));
     });
