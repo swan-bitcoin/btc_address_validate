@@ -142,11 +142,7 @@ Address validateSegwit(String address) {
 class SegwitException implements Exception {
   SegwitException(this.inner);
 
-<<<<<<< HEAD
   final Object inner;
-=======
-  final dynamic inner;
->>>>>>> master
 
   @override
   String toString() => 'SegWit decoding exception: $inner';
@@ -155,11 +151,7 @@ class SegwitException implements Exception {
 class Base58CheckException implements Exception {
   Base58CheckException(this.inner);
 
-<<<<<<< HEAD
   final Object inner;
-=======
-  final dynamic inner;
->>>>>>> master
 
   @override
   String toString() => 'Base58Check decoding exception: $inner';
