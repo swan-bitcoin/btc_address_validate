@@ -18,12 +18,16 @@ enum Network { mainnet, testnet }
 class Address extends Equatable {
   Address(this.type, this.network, this.segwit);
 
-  final Type type;
-  final Network network;
+  final Type? type;
+  final Network? network;
   final bool segwit;
 
   @override
-  List<Object> get props => [type, network, segwit];
+  List<Object?> get props => [type, network, segwit];
+
+  @override
+  String toString() =>
+      '[Address type: $type, network: $network, segwit: $segwit]';
 }
 
 const Map<int, Network> versionToNetwork = {
@@ -138,7 +142,11 @@ Address validateSegwit(String address) {
 class SegwitException implements Exception {
   SegwitException(this.inner);
 
+<<<<<<< HEAD
   final Object inner;
+=======
+  final dynamic inner;
+>>>>>>> master
 
   @override
   String toString() => 'SegWit decoding exception: $inner';
@@ -147,7 +155,11 @@ class SegwitException implements Exception {
 class Base58CheckException implements Exception {
   Base58CheckException(this.inner);
 
+<<<<<<< HEAD
   final Object inner;
+=======
+  final dynamic inner;
+>>>>>>> master
 
   @override
   String toString() => 'Base58Check decoding exception: $inner';

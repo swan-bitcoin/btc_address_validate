@@ -1,3 +1,7 @@
+v1.0.0
+* Migrate to null safety.
+* Add support for uppercase bech32 addresses.
+
 v0.1.0
 * Initial release
 
