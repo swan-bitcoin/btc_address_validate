@@ -1,10 +1,16 @@
+import 'dart:typed_data';
+
 import 'package:base58check/base58check.dart';
-import 'package:bech32/bech32.dart';
+import 'package:dart_bech32/dart_bech32.dart';
 import 'package:equatable/equatable.dart';
+import 'package:bech32/bech32.dart';
 
 enum Type {
   p2pkh,
   p2sh,
+
+  // Taproot
+  p2tr,
 }
 
 enum Network { mainnet, testnet }
@@ -39,14 +45,16 @@ const minLength = 34;
 Address validate(String address) {
   if (address.length < minLength) {
     throw FormatException(
-        "Too short: addresses must be at least $minLength characters");
+        'Too short: addresses must be at least $minLength characters');
   }
-  var prefix = address.substring(0, 2);
+
+  /// First try to parse as taproot / segwit
+  final prefix = address.substring(0, 2);
   if (prefix == 'bc' || prefix == 'tb') {
     return validateSegwit(address);
   }
 
-  var codec = Base58CheckCodec.bitcoin();
+  final codec = Base58CheckCodec.bitcoin();
   Base58CheckPayload decoded;
   try {
     decoded = codec.decode(address);
@@ -54,39 +62,64 @@ Address validate(String address) {
     throw Base58CheckException(e);
   }
   if (decoded.payload.length != 20) {
-    throw FormatException("Invalid Base58 payload length");
+    throw FormatException('Invalid Base58 payload length');
   }
-  var version = decoded.version;
+
+  final version = decoded.version;
   if (!versionToType.keys.contains(version)) {
-    throw FormatException("Invalid Base58 version");
+    throw FormatException('Invalid Base58 version');
   }
-  return Address(versionToType[version], versionToNetwork[version], false);
+  return Address(
+    versionToType[version]!,
+    versionToNetwork[version]!,
+    false,
+  );
 }
 
 Address validateSegwit(String address) {
-  var prefix = address.substring(0, 2);
-  Segwit decoded;
+  final prefix = address.substring(0, 2);
+  Decoded decoded;
+
+  /// Try to decode the address using bech32m
   try {
-    decoded = segwit.decode(address);
+    final _decoded = segwit.decode(address);
+    decoded = Decoded(
+      prefix: prefix,
+      words: Uint8List.fromList(
+        _decoded.program,
+      ),
+    );
+  } on InvalidChecksum {
+    decoded = bech32m.decode(Encoded(data: address));
   } catch (e) {
     throw SegwitException(e);
   }
 
-  var type;
+  late Type type;
   // other lengths result in a [SegwitException]
-  switch (decoded.program.length) {
+  switch (decoded.words.length) {
+
+    /// P2WPKH
     case 20:
-      {
-        type = Type.p2pkh;
-      }
+      type = Type.p2pkh;
       break;
+
+    /// P2WSH
     case 32:
-      {
-        type = Type.p2sh;
-      }
+      type = Type.p2sh;
+      break;
+
+    /// P2TR
+    case 53:
+      type = Type.p2tr;
+      break;
+
+    /// Other
+    default:
+      throw SegwitException('Invalid words length: ${decoded.words.length}');
   }
 
-  var network;
+  late Network network;
   switch (prefix) {
     case 'bc':
       {
@@ -105,15 +138,17 @@ Address validateSegwit(String address) {
 class SegwitException implements Exception {
   SegwitException(this.inner);
 
-  final Exception inner;
+  final Object inner;
 
-  String toString() => "SegWit decoding exception: $inner";
+  @override
+  String toString() => 'SegWit decoding exception: $inner';
 }
 
 class Base58CheckException implements Exception {
   Base58CheckException(this.inner);
 
-  final Exception inner;
+  final Object inner;
 
-  String toString() => "Base58Check decoding exception: $inner";
+  @override
+  String toString() => 'Base58Check decoding exception: $inner';
 }
