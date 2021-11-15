@@ -53,7 +53,7 @@ Address validate(String address) {
   }
 
   /// First try to parse as taproot / segwit
-  final prefix = address.substring(0, 2);
+  final prefix = address.substring(0, 2).toLowerCase();
   if (prefix == 'bc' || prefix == 'tb') {
     return validateSegwit(address);
   }
@@ -81,7 +81,7 @@ Address validate(String address) {
 }
 
 Address validateSegwit(String address) {
-  final prefix = address.substring(0, 2);
+  final prefix = address.substring(0, 2).toLowerCase();
   Decoded decoded;
 
   /// Try to decode the address using bech32m

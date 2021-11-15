@@ -21,7 +21,7 @@ void main() {
       });
 
       test('pkh-uppercase', () {
-        expect(validate("BC1QAR0SRRR7XFKVY5L643LYDNW9RE59GTZZWF5MDQ"),
+        expect(validate('BC1QAR0SRRR7XFKVY5L643LYDNW9RE59GTZZWF5MDQ'),
             Address(Type.p2pkh, Network.mainnet, true));
       });
 
@@ -35,7 +35,7 @@ void main() {
       test('sh-uppercase', () {
         expect(
             validate(
-                "BC1QC7SLRFXKKNQCQ2JEVVVKDGVRT8080852DFJEWDE450XDLK4UGP7SZW5TK9"),
+                'BC1QC7SLRFXKKNQCQ2JEVVVKDGVRT8080852DFJEWDE450XDLK4UGP7SZW5TK9'),
             Address(Type.p2sh, Network.mainnet, true));
       });
     });
@@ -116,7 +116,7 @@ void main() {
     test('segwit too long', () {
       expect(
           () => validate(
-              "bc10w508d6qejxtdg4y5r3zarvary0c5xw7kw508d6qejxtdg4y5r3zarvary0c5xw7kw5rljs90"),
+              'bc10w508d6qejxtdg4y5r3zarvary0c5xw7kw508d6qejxtdg4y5r3zarvary0c5xw7kw5rljs90'),
           throwsA(predicate((dynamic e) =>
               e is SegwitException &&
               e.toString() ==
