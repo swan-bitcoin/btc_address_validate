@@ -1,3 +1,6 @@
+v1.2.0
+* Support validation of addresses with 27 characters.
+
 v1.1.0
 * Added support for taproot (bech32m).
 

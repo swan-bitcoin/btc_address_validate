@@ -44,7 +44,7 @@ const Map<int, Type> versionToType = {
   196: Type.p2sh,
 };
 
-const minLength = 34;
+const minLength = 27;
 
 Address validate(String address) {
   if (address.length < minLength) {
@@ -102,7 +102,6 @@ Address validateSegwit(String address) {
   late Type type;
   // other lengths result in a [SegwitException]
   switch (decoded.words.length) {
-
     /// P2WPKH
     case 20:
       type = Type.p2pkh;

@@ -1,5 +1,5 @@
 name: btc_address_validate
-version: 1.1.0
+version: 1.2.0
 description: A minimal library to validate Bitcoin mainnet and testnet addresses
 homepage: https://github.com/dspicher/btc_address_validate
 
@@ -10,8 +10,8 @@ dependencies:
     bech32: ^0.2.1
 
 dev_dependencies:
-    test: ^1.19.3
+    test: ^1.23.1
     lints: ^1.0.1
 
 environment:
-    sdk: ">=2.14.0-0 <3.0.0"
+    sdk: ">=2.19.0-0 <3.0.0"
