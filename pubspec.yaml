@@ -1,5 +1,5 @@
 name: btc_address_validate_swan
-version: 1.2.0
+version: 1.2.1
 description: A minimal library to validate Bitcoin mainnet and testnet addresses
 homepage: https://github.com/dspicher/btc_address_validate
 

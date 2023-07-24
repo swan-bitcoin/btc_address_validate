@@ -1,5 +1,5 @@
+import 'package:btc_address_validate_swan/btc_address_validate_swan.dart';
 import 'package:test/test.dart';
-import 'package:btc_address_validate/btc_address_validate.dart';
 
 void main() {
   group('mainnet', () {
